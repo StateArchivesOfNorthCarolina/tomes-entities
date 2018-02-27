@@ -32,7 +32,7 @@ class Test_XLSXToEntities(unittest.TestCase):
             manifestations = entity["manifestations"]
             manifestations_count += len(manifestations)
 
-        self.assertTrue(manifestations_count == 10)
+        self.assertTrue(manifestations_count == 14)
 
 
 # CLI.

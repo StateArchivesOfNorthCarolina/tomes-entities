@@ -144,17 +144,28 @@ class XLSXToEntities():
         return is_valid
 
 
-    def _get_tomes_pattern(self, pattern):
-        """ Interprets @pattern as a 'TOMES pattern', allowing for single row notation of more
+    def _get_tomes_pattern(self, pattern, row_number):
+        """ Interprets @pattern as a "TOMES pattern", allowing for single row notation of more
         complex regex patterns. For more information, see the documentation files. NOTE: this
-        uses eval(). """
+        uses eval(). 
+        
+        Args:
+            - pattern (str): The suspected "TOMES pattern".
+            - row_number (int): The corresponding row number of @pattern in 
+            @self.entity_worksheet. 
+            
+        Returns:
+            list: The return value.
+        """
         
         # remove excess whitespace.
         pattern = pattern.strip()
 
         # test for incorrect TOMES pattern usage.
         if len(pattern) == 0:
-            self.logger.warning("TOMES pattern invalid; falling back to empty output.")
+            msg = "TOMES pattern in row {} is empty; falling back to empty output.".format(
+                    row_number)
+            self.logger.warning(msg)
             return []     
 
         # make sure a trailing comma exists; this prevents itertools.product() from splitting
@@ -163,7 +174,7 @@ class XLSXToEntities():
         if pattern[-1] != ",":
             pattern += ","
         
-        # interpret the pattern.
+        # interpret the TOMES pattern.
         patterns = []
         try:
             pattern = eval(pattern)
@@ -171,18 +182,21 @@ class XLSXToEntities():
             patterns.reverse()
         except (NameError, SyntaxError, TypeError) as err:
             self.logger.error(err)
-            self.logger.warning("Invalid TOMES pattern syntax; falling back to empty output.")
-            self.logger.debug("Invalid TOMES pattern: {}".format(pattern))
+            msg = "Invalid TOMES pattern syntax in row {}; falling back to empty output.\
+                    ".format(row_number)
+            self.logger.warning(msg)
 
         return patterns
 
 
-    def get_manifestations(self, pattern, case_sensitive):
+    def get_manifestations(self, pattern, case_sensitive, row_number):
         """ Returns manifestations of @pattern.
         
         Args:
             - pattern (str): The "pattern" field value for a given row.
             - case_sensitive (bool): The "case_sensitive" field value for a given row.
+            - row_number (int): The corresponding row number of @pattern in 
+            @self.entity_worksheet. 
 
         Returns:
             list: The return value.
@@ -200,10 +214,10 @@ class XLSXToEntities():
         tomes_pattern = "TOMES_PATTERN:"
         tomes_pattern_len = len(tomes_pattern)
         if pattern[:tomes_pattern_len] == tomes_pattern:
-            self.logger.info("Found TOMES pattern.")
+            self.logger.info("Found TOMES pattern in row {}.".format(row_number))
             is_tomes_pattern = True
             pattern = pattern[tomes_pattern_len:]
-            manifestations = self._get_tomes_pattern(pattern)
+            manifestations = self._get_tomes_pattern(pattern, row_number)
 
         # if specified, alter @pattern to ignore case provided @is_tomes_pattern is False.
         if not case_sensitive and not is_tomes_pattern:
@@ -211,7 +225,9 @@ class XLSXToEntities():
             pattern = ["(?i)" + token + "(?-i)" for token in tokens]
             pattern = " ".join(pattern)
         elif not case_sensitive and is_tomes_pattern:
-            self.logger.warning("Ignoring case insensitivity instruction for TOMES pattern.")
+            msg = "Ignoring case insensitivity instruction for TOMES pattern in row {}.\
+                    ".format(row_number)
+            self.logger.warning(msg)
 
         # if @is_tomes_pattern is False, append @pattern to output.
         if not is_tomes_pattern:
@@ -222,8 +238,10 @@ class XLSXToEntities():
             manifestations = sorted(manifestations)
         except TypeError as err:
             self.logger.error(err)
-            self.logger.warning("Can't sort manifestations as written.")
-            self.logger.info("Forcing all manifestations to strings before sorting.")
+            msg = "Can't yet sort manifestations in row {}, non-strings likely present.\
+                    ".format(row_number)
+            self.logger.warning(msg)
+            self.logger.info("Forcing all manifestations to strings in order to sort.")
             manifestations = [[str(x) for x in m] for m in manifestations]
             manifestations = sorted(manifestations)
 
@@ -304,7 +322,6 @@ class XLSXToEntities():
             for row in entity_rows:
 
                 self.logger.info("Processing row {}.".format(row_number))
-                row_number += 1
                 
                 # get row values.
                 row = [cell.value for cell in row]
@@ -315,16 +332,19 @@ class XLSXToEntities():
                 # run row validator.
                 row_valid = self._validate_row(row)
                 if not row_valid:
-                    self.logger.warning("Skipping row; row is invalid.")
+                    self.logger.warning("Skipping row {}; row is invalid.".format(
+                        row_number))
+                    row_number += 1
                     continue
                 
                 # alter data as needed and create dict for row.
                 row["identifier"] = hash_prefix + row["identifier"]
                 manifestations = self.get_manifestations(row["pattern"], 
-                        row["case_sensitive"])
+                        row["case_sensitive"], row_number)
                 row["manifestations"] = ["".join(m) for m in manifestations]
                 
-                # yield dict.
+                # yield row as dict.
+                row_number += 1
                 yield(row)
 
         return entities()
