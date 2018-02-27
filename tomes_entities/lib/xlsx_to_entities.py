@@ -111,12 +111,11 @@ class XLSXToEntities():
         return is_valid
 
 
-    def _validate_row(self, row, row_number):
+    def _validate_row(self, row):
         """ Determines if @row contains the correct data types per @self.required_headers. 
         
         Args:
             - row (dict): An item from self.get_entities().
-            - row_number (int): The line number of @row within @self.entity_worksheet.
             
         Returns:
             bool: The return value.
@@ -133,8 +132,8 @@ class XLSXToEntities():
                     self.required_headers[field].__name__)
             test = value_type == header_type
             if not test:
-                err = "Field '{}' in row {} not valid; expected '{}', got '{}'.".format(
-                        field, row_number, header_type, value_type)
+                err = "Field '{}' not valid; expected '{}', got '{}'.".format(field,
+                        header_type, value_type)
                 self.logger.debug(err)
             tests.append(test)
 
@@ -173,18 +172,17 @@ class XLSXToEntities():
         except (NameError, SyntaxError, TypeError) as err:
             self.logger.error(err)
             self.logger.warning("Invalid TOMES pattern syntax; falling back to empty output.")
-            self.logger.debug("TOMES pattern: {}".format(pattern))
+            self.logger.debug("Invalid TOMES pattern: {}".format(pattern))
 
         return patterns
 
 
-    def get_manifestations(self, pattern, case_sensitive, row_number):
+    def get_manifestations(self, pattern, case_sensitive):
         """ Returns manifestations of @pattern.
         
         Args:
             - pattern (str): The "pattern" field value for a given row.
             - case_sensitive (bool): The "case_sensitive" field value for a given row.
-            - row_number (int): The line number of @row within @self.entity_worksheet.
 
         Returns:
             list: The return value.
@@ -202,7 +200,7 @@ class XLSXToEntities():
         tomes_pattern = "TOMES_PATTERN:"
         tomes_pattern_len = len(tomes_pattern)
         if pattern[:tomes_pattern_len] == tomes_pattern:
-            self.logger.info("Found TOMES pattern in row {}.".format(row_number))
+            self.logger.info("Found TOMES pattern.")
             is_tomes_pattern = True
             pattern = pattern[tomes_pattern_len:]
             manifestations = self._get_tomes_pattern(pattern)
@@ -213,15 +211,23 @@ class XLSXToEntities():
             pattern = ["(?i)" + token + "(?-i)" for token in tokens]
             pattern = " ".join(pattern)
         elif not case_sensitive and is_tomes_pattern:
-            msg = "Ignoring case insensitivity instruction for TOMES pattern in row {}.\
-                    ".format(row_number)
-            self.logger.warning(msg)
+            self.logger.warning("Ignoring case insensitivity instruction for TOMES pattern.")
 
         # if @is_tomes_pattern is False, append @pattern to output.
         if not is_tomes_pattern:
             manifestations.append(pattern)
 
-        return sorted(manifestations)
+        # sort @manifestations.
+        try:
+            manifestations = sorted(manifestations)
+        except TypeError as err:
+            self.logger.error(err)
+            self.logger.warning("Can't sort manifestations as written.")
+            self.logger.info("Forcing all manifestations to strings before sorting.")
+            manifestations = [[str(x) for x in m] for m in manifestations]
+            manifestations = sorted(manifestations)
+
+        return manifestations
 
         
     def _get_rows(self, xlsx_file):
@@ -290,13 +296,16 @@ class XLSXToEntities():
         # create generator for each row.
         def entities():
             
-            # start row numbering at 2 because the header row is the first.
+            # start numbering at 2 because the header has already been read.
             row_number = 2
             
             # yield a dict for each non-header row.
             header_range = range(0,len(header))
             for row in entity_rows:
 
+                self.logger.info("Processing row {}.".format(row_number))
+                row_number += 1
+                
                 # get row values.
                 row = [cell.value for cell in row]
                 row = [cell.strip() if isinstance(cell, str) else cell for cell in row]
@@ -304,17 +313,15 @@ class XLSXToEntities():
                 row = dict(row)
 
                 # run row validator.
-                row_valid = self._validate_row(row, row_number)
-                row_number += 1
+                row_valid = self._validate_row(row)
                 if not row_valid:
-                    self.logger.warning("Skipping row {}; row is invalid.".format(
-                        row_number - 1))
+                    self.logger.warning("Skipping row; row is invalid.")
                     continue
                 
                 # alter data as needed and create dict for row.
                 row["identifier"] = hash_prefix + row["identifier"]
-                manifestations = self.get_manifestations(row["pattern"], row["case_sensitive"], 
-                        row_number)
+                manifestations = self.get_manifestations(row["pattern"], 
+                        row["case_sensitive"])
                 row["manifestations"] = ["".join(m) for m in manifestations]
                 
                 # yield dict.

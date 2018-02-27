@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """ This module contain a class for converting a TOMES Excel 2007+ (.xlsx) entity dictionary
-file to Stanford CoreNLP compliant text files or JSON files. """
+file to Stanford CoreNLP compliant text file or a JSON file. """
 
 # import modules.
 import sys; sys.path.append("..")
@@ -15,8 +15,8 @@ from tomes_entities.lib.xlsx_to_entities import XLSXToEntities
 
 
 class Entities():
-    """ A class for converting a TOMES Excel 2007+ (.xlsx) entity dictionary file to Stanford
-    CoreNLP compliant text files or JSON files.
+    """ A class for converting a TOMES Excel 2007+ (.xlsx) entity dictionary file to a 
+    Stanford CoreNLP compliant text file or a JSON file.
     
     Example:
     >>> entities = Entities("../tests/sample_files/sampleEntityDictionary.xlsx")
@@ -167,7 +167,7 @@ def main(xlsx: ".xlsx entity dictionary file",
         output: ("file destination (use '.json' extension for JSON)"),
         silent: ("disable console logs", "flag", "s")):
 
-    "Converts TOMES Entity Dictionary to Stanford file or JSON file.\
+    "Converts TOMES Entity Dictionary to Stanford CoreNLP text file or a JSON file.\
     \nexample: `py -3 entities.py ../tests/sample_files/sampleEntityDictionary.xlsx mappings.txt`"
 
     # make sure logging directory exists.
