@@ -11,7 +11,7 @@ import logging.config
 import os
 import plac
 import yaml
-from tomes_tool.lib.xlsx_to_entities import XLSXToEntities
+from tomes_entities.lib.xlsx_to_entities import XLSXToEntities
 
 
 class Entities():

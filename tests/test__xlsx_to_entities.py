@@ -4,7 +4,7 @@
 import sys; sys.path.append("..")
 import logging
 import unittest
-from tomes_tool.lib.xlsx_to_entities import *
+from tomes_entities.lib.xlsx_to_entities import *
 
 # enable logging.
 logging.basicConfig(level=logging.WARNING)
