@@ -67,9 +67,11 @@ class Entities():
         self.logger.info("Getting data from: {}".format(self.xlsx_file))
         try:
             entities = self.x2e.get_entities(self.xlsx_file)
-        except (KeyError, self.x2e.SchemaError) as err:
-            self.logger.error(err)
-            raise err
+        except Exception as err:
+            err_name = type(err).__name__
+            msg = ("{}: {}".format(err_name, err))
+            self.logger.error(msg)
+            raise Exception(msg)
 
         return entities
 
