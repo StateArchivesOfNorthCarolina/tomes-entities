@@ -7,7 +7,7 @@ import unittest
 from tomes_entities.lib.xlsx_to_entities import *
 
 # enable logging.
-logging.basicConfig(level=logging.WARNING)
+logging.basicConfig(level=logging.DEBUG)
 
 
 class Test_XLSXToEntities(unittest.TestCase):
