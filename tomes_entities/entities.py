@@ -203,7 +203,8 @@ def main(xlsx: ".xlsx entity dictionary file",
         logging.info("Done.")
         sys.exit()
     except Exception as err:
-        sys.exit(err)
+        logging.critical(err)
+        sys.exit(err.__repr__())
         
 
 if __name__ == "__main__":
