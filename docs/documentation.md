@@ -16,7 +16,7 @@ The file "./tomes\_entities/dictionaries/TOMES\_Entity\_Dictionary.xlsx" contain
 # External Dependencies
 TOMES Entities requires the following applications:
 
-- [Python 3+](https://www.python.org/download/releases/3.0/) (using 3.6)
+- [Python](https://www.python.org/download/releases/3.0/) 3.0+ (using 3.5+)
 	- See the "./requirements.txt" file for additional module dependencies.
 	- You will also want to install [pip](https://pypi.python.org/pypi/pip) for Python 3.
 - Microsoft Office 2007+ or another suite, such as [LibreOffice](https://www.libreoffice.org), capable of creating Excel 2007+ Excel files (.xlsx).
