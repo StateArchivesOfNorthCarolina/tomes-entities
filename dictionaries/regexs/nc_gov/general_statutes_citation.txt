@@ -27,6 +27,10 @@ G\.\s{0,1}S\.\s
 \b
 
 
+### TOMES PATTERN
+TOMES_PATTERN: {"(?i)General(?-i) (?i)Statute(?-i)", "GS", "G. S.", "G.S."}, {" "}, {"", "§", "§ "}, {"[12][0-9]{0,2}[a-zA-Z]{0,1}"}
+
+
 ### MATCH
 General StatuTe 1
 GS1A

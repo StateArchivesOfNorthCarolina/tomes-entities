@@ -39,9 +39,9 @@ class Test_XLSXToEntities(unittest.TestCase):
 def main(pattern: "the pattern to interpret", 
         ignore_case: ("make pattern case-insensitive", "flag", "i")):
     
-    "Prints manifestations for a given pattern.\
-    \nexample: `py -3 test__xlsx_to_entities \"TOMES_PATTERN: {'A'}, {'-', ' '}, {'B'}\"\
-    "
+    """Prints manifestations for a given pattern.\
+    \nexample: `py -3 test__xlsx_to_entities.py 'TOMES_PATTERN: {"A"}, {"-", " "}, {"B"}'`\
+    """
 
     # get flipped value of flag.
     case = ignore_case != True

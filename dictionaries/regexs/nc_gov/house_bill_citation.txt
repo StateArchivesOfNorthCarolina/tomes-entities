@@ -19,6 +19,10 @@ H\.\s{0,1}B\.\s
 \b
 
 
+### TOMES PATTERN
+TOMES_PATTERN: {"(?i)House(?-i) (?i)Bill(?-i)", "H", "HB", "H. B.", "H.B."}, {"" , " "}, {"[0-9]{1,4}"}
+
+
 ### MATCH
 H123
 H1234

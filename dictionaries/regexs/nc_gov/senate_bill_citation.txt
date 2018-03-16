@@ -22,6 +22,10 @@ S\.\s{0,1}B\.
 \b
 
 
+### TOMES PATTERN
+TOMES_PATTERN: {"(?i)Senate(?-i) (?i)Bill(?-i)", "S", "SB", "S.B.", "S. B."}, {"", " "}, {"[0-9]{1,4}"}
+
+
 ### MATCH
 S123
 S1234

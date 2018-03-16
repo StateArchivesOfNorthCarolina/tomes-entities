@@ -186,6 +186,7 @@ class XLSXToEntities():
                     ".format(row_number)
             self.logger.warning(msg)
 
+        self.logger.info("TOMES Pattern yielded {} sub-patterns.".format(len(patterns)))
         return patterns
 
 
