@@ -60,6 +60,7 @@ class XLSXToEntities():
         # get checksum; truncate it.
         checksum = hashlib.sha256()
         entity_rows = self._get_rows(xlsx_file)
+        
         for row in entity_rows:
             row = "".join([str(cell.value) for cell in row])
             checksum.update(row.encode(self.charset))
