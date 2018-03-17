@@ -44,8 +44,8 @@ class XLSXToEntities():
 
 
     def _get_hash_prefix(self, xlsx_file):
-        """ Gets the first six characters of the SHA-256 hash of @xlsx_file and 
-        adds a trailing hash mark.
+        """ Gets a truncated SHA-256 hash for the sheet data in  @self.entity_worksheet 
+        in @xlsx_file.
         
         Args:
             - xlsx_file (str): The path to the Excel file to load.
@@ -57,13 +57,14 @@ class XLSXToEntities():
         # placeholder value.
         hash_prefix = ""
 
-        # get checksum of @xlsx_file; truncate it.
+        # get checksum; truncate it.
         checksum = hashlib.sha256()
-        with open(xlsx_file, "rb") as xf:
-            xf_bytes = xf.read()
-        checksum.update(xf_bytes)
+        entity_rows = self._get_rows(xlsx_file)
+        for row in entity_rows:
+            row = "".join([str(cell.value) for cell in row])
+            checksum.update(row.encode(self.charset))
         hash_prefix = checksum.hexdigest()[:6] + "#"
-
+        
         return hash_prefix
 
 
