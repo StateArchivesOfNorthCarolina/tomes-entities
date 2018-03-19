@@ -164,7 +164,7 @@ class XLSXToEntities():
         pattern = pattern.strip()
 
         # test for incorrect TOMES pattern usage.
-        if len(pattern) == 0:
+        if pattern == "":
             msg = "TOMES pattern in row {} is empty; falling back to empty output.".format(
                     row_number)
             self.logger.warning(msg)
@@ -177,9 +177,11 @@ class XLSXToEntities():
             pattern += ","
         
         # interpret the TOMES pattern.
+        # NOTE: this uses eval() but attempts to restrict malicious code per:
+        # "http://lybniz2.sourceforge.net/safeeval.html".
         patterns = []
         try:
-            pattern = eval(pattern)
+            pattern = eval(pattern, {"__builtins__": {}}, {})
             patterns = [i for i in itertools.product(*pattern)]
             patterns.reverse()
         except (NameError, SyntaxError, TypeError) as err:
