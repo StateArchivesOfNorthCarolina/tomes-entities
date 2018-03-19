@@ -148,8 +148,10 @@ class XLSXToEntities():
 
     def _get_tomes_pattern(self, pattern, row_number):
         """ Interprets @pattern as a "TOMES pattern", allowing for single row notation of more
-        complex regex patterns. For more information, see the documentation files. NOTE: this
-        uses eval(). 
+        complex regex patterns. For more information, see the documentation files.
+        
+        NOTE: this uses eval() but attempts to restrict malicious code per:
+        "http://lybniz2.sourceforge.net/safeeval.html".
         
         Args:
             - pattern (str): The suspected "TOMES pattern".
@@ -177,8 +179,6 @@ class XLSXToEntities():
             pattern += ","
         
         # interpret the TOMES pattern.
-        # NOTE: this uses eval() but attempts to restrict malicious code per:
-        # "http://lybniz2.sourceforge.net/safeeval.html".
         patterns = []
         try:
             pattern = eval(pattern, {"__builtins__": {}}, {})
