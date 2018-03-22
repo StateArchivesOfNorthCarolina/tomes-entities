@@ -326,7 +326,7 @@ class XLSXToEntities():
             header_range = range(0,len(header))
             for row in entity_rows:
 
-                self.logger.debug("Processing row {}.".format(row_number))
+                self.logger.info("Processing row {}.".format(row_number))
                 
                 # get row values.
                 row = [cell.value for cell in row]

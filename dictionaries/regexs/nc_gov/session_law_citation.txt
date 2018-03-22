@@ -30,6 +30,10 @@ S\.\s{0,1}L\.
 \b
 
 
+### TOMES PATTERN
+TOMES_PATTERN: {"(?i)Session(?-i) (?i)Law(?-i)", "SL", "S.L.", "S. L."}, {"[1,2][0-9]{3}-[0-9]{1,3}"}
+
+
 ### MATCH
 Session Law 1234-1
 session lAw 1234-1
