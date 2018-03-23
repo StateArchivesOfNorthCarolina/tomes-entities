@@ -30,7 +30,9 @@
 
 
 ### TOMES PATTERN
-TOMES_PATTERN: {"[0-9]{4}"}, {" ", "-"}, {"[0-9]{4}"}, {" ", "-"}, {"[0-9]{4}"}, {"", " ", "-"}, {"[0-9]{4}"}
+# Note: CoreNLP doesn't always appear to see space as space between sets of 4 digits - this might be because it sees it as duration.
+# This is why the pattern uses an "anything but alphanumeric" as a delimiter.
+TOMES_PATTERN: {"[0-9]{4}"}, {"[^a-zA-Z0-9]"}, {"[0-9]{4}"}, {"[^a-zA-Z0-9]"}, {"[0-9]{4}"}, {"", "[^a-zA-Z0-9]"}, {"[0-9]{4}"}
 
 
 ### MATCH

@@ -1,0 +1,77 @@
+### REGEX
+(?x)
+
+# optional words for two-word prisons.
+(Avery\s|Dan\s|Mountain\s|New\s){0,1}
+
+# capitalized word of 3 to 15 characters.
+([A-Z][a-z]{2,14})
+
+# "Prison" preceeded by a space.
+[\s]Prison
+
+
+### TOMES PATTERN
+TOMES_PATTERN: {"Avery ", "Dan ", "Mountain ", "New ", ""}, {"[A-Z][a-z]{2,14}"}, {" "}, {"Prison"}
+
+
+### MATCH
+Albemarle Prison
+Alexander Prison
+Avery Mitchell Prison
+Bertie Prison
+Caldwell Prison
+Caledonia Prison
+Carteret Prison
+Caswell Prison
+Catawba Prison
+Columbus Prison
+Craggy Prison
+Craven Prison
+Dan River Prison
+Davidson Prison
+Eastern Prison
+Foothills Prison
+Forsyth Prison
+Franklin Prison
+Gaston Prison
+Greene Prison
+Harnett Prison
+Hoke Prison
+Hyde Prison
+Johnston Prison
+Lanesboro Prison
+Lincoln Prison
+Lumberton Prison
+Marion Prison
+Maury Prison
+Morrison Prison
+Mountain View Prison
+Nash Prison
+Neuse Prison
+New Hanover Prison
+Womens Prison
+Odom Prison
+Orange Prison
+Pamlico Prison
+Pasquotank Prison
+Pender Prison
+Piedmont Prison
+Polk Prison
+Randolph Prison
+Rutherford Prison
+Sampson Prison
+Sanford Prison
+Scotland Prison
+Southern Prison
+Swannanoa Prison
+Tabor Prison
+Tyrrell Prison
+Wake Prison
+Warren Prison
+Wilkes Prison 
+
+
+### NON-MATCH
+Dan river prison
+Alexander Foo Prison

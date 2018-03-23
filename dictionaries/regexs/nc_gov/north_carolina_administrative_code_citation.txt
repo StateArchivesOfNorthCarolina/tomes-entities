@@ -14,7 +14,7 @@ https://www.law.cornell.edu/citation/3-400#3-410_North_Carolina
 [1-3][0-9]
 )
 
-# capital letter.
+# optional capital letter.
 [A-Z]{0,1}
 
 # space.
@@ -50,11 +50,13 @@ NCAC
 
 
 ### TOMES PATTERN
-# Note: CoreNLP appears to tokenize periods after "Admin." considers the period following the last four digits as part of that token.
-TOMES_PATTERN: {"([1-9]|[1-3][0-9])[A-Z]{0,1}"}, {" "}, {"N.C. Admin Code", "NC Admin Code", "NCAC"}, {". ", " "}, {"[1-9][0-9]{0,1}[A-Z]"}, {".[0-9]{1,4}"}
+# Note: CoreNLP appears to mark "Admin." as the end of the sentence and tagging doesn't occur across sentences.
+# so, this pattern attempts only a partial match up to "NC Admin", ignoring the rest. But for "NCAC" it uses the rest of the regex.
+TOMES_PATTERN: {"([1-9]|[1-3][0-9])[A-Z]{0,1}"}, {" "}, {"N.C. Admin", "NC Admin", "NCAC [1-9][0-9]{0,1}[A-Z] \.[0-9]{1,4}"}
 
 
 ### MATCH
+17 NC Admin. Code 5C.0703
 17 N.C. Admin. Code 5C.0703
 17 NCAC 5C.0703
 
