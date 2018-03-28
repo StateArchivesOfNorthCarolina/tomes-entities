@@ -99,7 +99,6 @@ class Entities():
         entities = self.entities()
 
         # open @output_file for writing.
-        self.logger.info("Writing Stanford file: {}".format(output_file))
         tsv = open(output_file, "w", encoding="utf-8")
 
         # iterate through rows; write data to @output_file.
@@ -118,8 +117,9 @@ class Entities():
                 else:
                     linebreak = True
                 tsv.write("\t".join([manifestation,tag]))
-
         tsv.close()
+
+        self.logger.info("Created Stanford file: {}".format(output_file))
         return
 
 
@@ -146,7 +146,6 @@ class Entities():
         entities = self.entities()
 
         # open @output_file for writing.
-        self.logger.info("Writing JSON file: {}".format(output_file))
         jsv = open(output_file, "w", encoding="utf-8")
         jsv.write("[")
 
@@ -159,14 +158,16 @@ class Entities():
                 jsv.write(",\n")
             jsv.write(json.dumps(entity, indent=2))
         jsv.write("]")
-
         jsv.close()
+        
+        self.logger.info("Created JSON file: {}".format(output_file))
         return
 
 
 # CLI.
 def main(xlsx: ".xlsx entity dictionary file", 
-        output: ("file destination (use '.json' extension for JSON)"),
+        output: ("output file destination"),
+        JSON: ("use JSON output", "flag", "j"),
         silent: ("disable console logs", "flag", "s")):
 
     "Converts TOMES Entity Dictionary to Stanford CoreNLP text file or a JSON file.\
@@ -193,7 +194,7 @@ def main(xlsx: ".xlsx entity dictionary file",
     
     # set write method depending on extension of @output.
     write_func = entities.write_stanford
-    if output[-5:] == ".json":
+    if JSON:
         write_func = entities.write_json
     
     # write @output.
