@@ -70,10 +70,10 @@ class XLSXToEntities():
 
 
     def _validate_header(self, header_row):
-        """ Determines if @header_row is contains all the fields in @self.required_headers.
+        """ Determines if @header_row contains all the fields in @self.required_headers.
         
         Args:
-            - header_row (tuple): The row values for the presumed first row of data.
+            - header_row (tuple): The row values for the first row of data.
 
         Returns:
             bool: The return value.
@@ -147,14 +147,14 @@ class XLSXToEntities():
 
 
     def _get_tomes_pattern(self, pattern, row_number):
-        """ Interprets @pattern as a "TOMES pattern", allowing for single row notation of more
+        """ Interprets @pattern as a "TOMES Pattern", allowing for single row notation of more
         complex regex patterns. For more information, see the documentation files.
         
         NOTE: this uses eval() but attempts to restrict malicious code per:
         "http://lybniz2.sourceforge.net/safeeval.html".
         
         Args:
-            - pattern (str): The suspected "TOMES pattern".
+            - pattern (str): The suspected "TOMES Pattern".
             - row_number (int): The corresponding row number of @pattern in 
             @self.entity_worksheet. 
             
@@ -165,7 +165,7 @@ class XLSXToEntities():
         # remove excess whitespace.
         pattern = pattern.strip()
 
-        # test for incorrect TOMES pattern usage.
+        # test for incorrect TOMES Pattern usage.
         if pattern == "":
             msg = "TOMES pattern in row {} is empty; falling back to empty output.".format(
                     row_number)
@@ -215,11 +215,11 @@ class XLSXToEntities():
         manifestations = []
         is_tomes_pattern = False
         
-        # if @pattern is a TOMES pattern instance, alter it per self._get_tomes_pattern().
+        # if @pattern is a TOMES Pattern instance, alter it per self._get_tomes_pattern().
         tomes_pattern = "TOMES_PATTERN:"
         tomes_pattern_len = len(tomes_pattern)
         if pattern[:tomes_pattern_len] == tomes_pattern:
-            self.logger.info("Found TOMES pattern in row {}.".format(row_number))
+            self.logger.info("Found TOMES Pattern in row {}.".format(row_number))
             is_tomes_pattern = True
             pattern = pattern[tomes_pattern_len:]
             manifestations = self._get_tomes_pattern(pattern, row_number)
@@ -230,7 +230,7 @@ class XLSXToEntities():
             pattern = ["(?i)" + token + "(?-i)" for token in tokens]
             pattern = " ".join(pattern)
         elif not case_sensitive and is_tomes_pattern:
-            msg = "Ignoring case insensitivity instruction for TOMES pattern in row {}.\
+            msg = "Ignoring case insensitivity instruction for TOMES Pattern in row {}.\
                     ".format(row_number)
             self.logger.warning(msg)
 
@@ -362,4 +362,3 @@ class XLSXToEntities():
 
 if __name__ == "__main__":
     pass
-

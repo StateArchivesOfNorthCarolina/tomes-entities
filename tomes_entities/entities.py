@@ -192,7 +192,7 @@ def main(xlsx: ".xlsx entity dictionary file",
     # create class instance.
     entities = Entities(xlsx)
     
-    # set write method depending on extension of @output.
+    # set write method.
     write_func = entities.write_stanford
     if JSON:
         write_func = entities.write_json
@@ -212,4 +212,3 @@ if __name__ == "__main__":
     
     import plac
     plac.call(main)
-    

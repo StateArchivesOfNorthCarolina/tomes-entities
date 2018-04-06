@@ -16,4 +16,3 @@ setup(
     description="Part of the TOMES project: creates a Stanford CoreNLP compliant RegexNER mappings file.",
     long_description=doc(),
 )
-
