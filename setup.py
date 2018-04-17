@@ -9,7 +9,7 @@ setup(
     version="0.0.1",
     packages=setuptools.find_packages(),
     python_requires=">=3",
-    url="https://github.com/StateArchivesOfNorthCarolina/tomes_entities",
+    url="https://github.com/StateArchivesOfNorthCarolina/tomes-entities",
     license="LICENSE.txt",
     author="Nitin Arora",
     author_email="nitin.a.arora@ncdcr.gov",
