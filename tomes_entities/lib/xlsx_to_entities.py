@@ -86,7 +86,8 @@ class XLSXToEntities():
         is_valid = True
 
         # check if @header_row is perfect.
-        if header_row == tuple(self.required_headers.keys()):
+        required_keys = tuple(self.required_headers.keys())
+        if sorted(header_row) == sorted(required_keys):
             self.logger.info("Header is valid.")
             return is_valid
         else:
@@ -271,6 +272,7 @@ class XLSXToEntities():
         workbook = load_workbook(xlsx_file, read_only=False, data_only=True)
         
         # verify that required worksheet exists.
+        entity_rows = []
         try:
             entity_rows = workbook[self.entity_worksheet].iter_rows()
         except KeyError as err:
