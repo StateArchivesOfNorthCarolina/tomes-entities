@@ -4,6 +4,7 @@
 file to Stanford CoreNLP compliant text file or a JSON file. """
 
 __NAME__ = "tomes_entities"
+__FULLNAME__ = "TOMES Entities"
 __DESCRIPTION__ = "Part of the TOMES project: creates a Stanford CoreNLP NER mappings file."
 __URL__ = "https://github.com/StateArchivesOfNorthCarolina/tomes-entities"
 __VERSION__ = "0.0.1"
