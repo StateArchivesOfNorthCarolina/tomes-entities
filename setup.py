@@ -1,3 +1,4 @@
+import tomes_entities.entities as entities
 from setuptools import setup, setuptools
 
 def doc():
@@ -5,14 +6,14 @@ def doc():
         return d.read()
 		
 setup(
-    name="tomes_entities",
-    version="0.0.1",
-    packages=setuptools.find_packages(),
-    python_requires=">=3",
-    url="https://github.com/StateArchivesOfNorthCarolina/tomes-entities",
-    license="LICENSE.txt",
-    author="Nitin Arora",
-    author_email="nitin.a.arora@ncdcr.gov",
-    description="Part of the TOMES project: creates a Stanford CoreNLP compliant RegexNER mappings file.",
-    long_description=doc(),
+    author = entities.__author__,
+    author_email = entities.__author_email__,
+    description = entities.__description__,
+    name = entities.__name__,
+    url = entities.__url__,
+    version = entities.__version__,
+    packages = setuptools.find_packages(),
+    python_requires = ">=3",
+    license = "LICENSE.txt",
+    long_description = doc(),
 )

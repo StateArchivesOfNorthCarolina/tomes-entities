@@ -3,6 +3,13 @@
 """ This module contain a class for converting a TOMES Excel 2007+ (.xlsx) entity dictionary
 file to Stanford CoreNLP compliant text file or a JSON file. """
 
+__author__ = "Nitin Arora",
+__author_email__ = "nitin.a.arora@ncdcr.gov",
+__description__ = "Part of the TOMES project: creates a Stanford CoreNLP NER mappings file."
+__name__ = "tomes_entities"
+__url__ = "https://github.com/StateArchivesOfNorthCarolina/tomes-entities"
+__version__ = "0.0.1"
+
 # import modules.
 import sys; sys.path.append("..")
 import json
