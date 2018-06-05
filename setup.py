@@ -6,12 +6,12 @@ def doc():
         return d.read()
 		
 setup(
-    author = entities.__author__,
-    author_email = entities.__author_email__,
-    description = entities.__description__,
-    name = entities.__name__,
-    url = entities.__url__,
-    version = entities.__version__,
+    name = entities.__NAME__,
+    description = entities.__DESCRIPTION__,
+    url = entities.__URL__,
+    version = entities.__VERSION__,
+    author = entities.__AUTHOR__,
+    author_email = entities.__AUTHOR_EMAIL__,
     packages = setuptools.find_packages(),
     python_requires = ">=3",
     license = "LICENSE.txt",
