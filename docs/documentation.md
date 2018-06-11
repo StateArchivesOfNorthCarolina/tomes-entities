@@ -57,6 +57,9 @@ To get started, import the module and run help():
 	>>> from tomes_entities import entities
 	>>> help(entities)
 
+
+*Note: the docstring examples may reference sample files that are NOT included in the installed Python package. Please use appropriate paths to sample files as needed.*
+
 ## Using entities.py from the command line
 1. From the "./tomes\_entities" directory do: `py -3 entities.py -h` to see an example command.
 2. Run the example command.
