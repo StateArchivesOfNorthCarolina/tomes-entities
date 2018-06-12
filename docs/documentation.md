@@ -3,7 +3,7 @@
 
 It is written in Python.
 
-Its purpose is to create a [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) compliant [RegexNER mappings file](https://stanfordnlp.github.io/CoreNLP/regexner.html#mapping-files) for use with [TOMES Tool](https://github.com/StateArchivesOfNorthCarolina/tomes_tool).
+Its purpose is to create a [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) compliant [RegexNER mappings file](https://stanfordnlp.github.io/CoreNLP/regexner.html#mapping-files) for use with [TOMES Tagger](https://github.com/StateArchivesOfNorthCarolina/tomes-tagger).
 
 The mappings file is created from a Microsoft Excel 2007+ file using a specific schema, or template. Please refer to "./dictionaries/entity\_dictionary\_template.xlsx".
 
