@@ -46,7 +46,7 @@ Sample files are located in the "./tests/sample_files" directory.
 The sample files can be used with the command line options of some of the unit tests.
 
 # Modules
-TOMES Entities consists of a single-purpose, high level module, **entities.py**. This creates a Stanford CoreNLP compliant version of NER patterns from a source Microsoft Excel file. It can be used as native Python class or as command line script.
+TOMES Entities consists of a single-purpose, high level module, **entities.py**. It can be used as native Python class or as command line script.
 
 ## Using entities.py with Python
 To get started, import the module and run help():
