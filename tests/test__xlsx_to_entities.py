@@ -54,6 +54,5 @@ def main(pattern: "the pattern to interpret",
         print("".join(result))
 
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__":    
     plac.call(main)

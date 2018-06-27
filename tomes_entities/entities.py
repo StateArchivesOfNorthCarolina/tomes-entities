@@ -216,6 +216,5 @@ def main(xlsx: ".xlsx entity dictionary file",
         sys.exit(err.__repr__())
         
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__":    
     plac.call(main)
