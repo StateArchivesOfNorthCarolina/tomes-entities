@@ -3,6 +3,7 @@
 # import modules.
 import sys; sys.path.append("..")
 import logging
+import plac
 import unittest
 from tomes_entities.lib.xlsx_to_entities import *
 
@@ -55,6 +56,5 @@ def main(pattern: "the pattern to interpret",
 
 if __name__ == "__main__":
     
-    import plac
     plac.call(main)
 
