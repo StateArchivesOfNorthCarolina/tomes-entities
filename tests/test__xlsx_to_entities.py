@@ -57,4 +57,3 @@ def main(pattern: "the pattern to interpret",
 if __name__ == "__main__":
     
     plac.call(main)
-
