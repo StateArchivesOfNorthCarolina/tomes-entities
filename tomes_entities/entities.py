@@ -179,7 +179,7 @@ def main(xlsx: ".xlsx entity dictionary file",
         silent: ("disable console logs", "flag", "s")):
 
     "Converts TOMES Entity Dictionary to Stanford CoreNLP text file or a JSON file.\
-    \nexample: `py -3 entities.py ../tests/sample_files/sampleEntityDictionary.xlsx mappings.txt`"
+    \nexample: `python3 entities.py ../tests/sample_files/sampleEntityDictionary.xlsx mappings.txt`"
 
     # make sure logging directory exists.
     logdir = "log"

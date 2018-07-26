@@ -35,12 +35,12 @@ While not true unit tests that test each function or method of a given module or
 Unit tests reside in the `./tests` directory and start with "test__".
 
 ## Running the tests
-To run all the unit tests do <sup>[1]</sup>: `py -3 -m unittest` from within the `./tests` directory. 
+To run all the unit tests do <sup>[1]</sup>: `python3 -m unittest` from within the `./tests` directory. 
 
 ## Using the command line
 All of the unit tests have command line options.
 
-To see the options and usage examples simply call the scripts with the `-h` option: `py -3 test__[rest of filename].py -h` and try the example.
+To see the options and usage examples simply call the scripts with the `-h` option: `python3 test__[rest of filename].py -h` and try the example.
 
 Sample files are located in the `./tests/sample_files` directory.
 
@@ -58,8 +58,8 @@ To get started, import the module and run help():
 *Note: docstring and command line examples may reference sample and data files that are NOT included in the installed Python package. Please use appropriate paths to sample and data files as needed.*
 
 ## Using entities.py from the command line
-1. From the `./tomes_entities` directory do: `py -3 entities.py -h` to see an example command.
+1. From the `./tomes_entities` directory do: `python3 entities.py -h` to see an example command.
 2. Run the example command.
 
 -----
-*[1] Depending on your system configuration, you might need to specify "python3", etc. instead of "py -3" from the command line. Similar differences might apply for PIP.*
+*[1] Depending on your system configuration, you might need to specify "py -3", etc. instead of "python3" from the command line. Similar differences might apply for PIP.*
