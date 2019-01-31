@@ -50,7 +50,7 @@ The sample files can be used with the command line options of some of the unit t
 TOMES Entities consists of a single-purpose, high level module, `entities.py`. It can be used as native Python class or as command line script.
 
 ## Using entities.py with Python
-To get started, import the module and run help():
+To get started, import the module and run `help()`:
 
 	>>> from tomes_entities import entities
 	>>> help(entities)
